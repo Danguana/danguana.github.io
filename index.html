@@ -7,6 +7,11 @@
     <style>
         /* Font Options - Replace the @import with your preferred font */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@0,400;0,700;&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Space+Mono:wght@400;700&display=swap');
         /* Alternative font options:
            - Roboto: 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap'
            - Source Sans Pro: 'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap'
@@ -18,16 +23,28 @@
             --primary-color: #2563eb;
             --secondary-color: #64748b;
             --accent-color: #0ea5e9;
-            --text-primary: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --border-color: #334155;
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            /* --text-primary: #1e293b;
             --text-secondary: #64748b;
             --bg-primary: #ffffff;
             --bg-secondary: #f8fafc;
             --border-color: #e2e8f0;
             --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 4px 6px -1px rgba(0, 0, 0, 0.1); */
             
             /* Font Variables - Easy to customize */
-            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            /* --font-primary: 'Space Mono', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; */
+            /* --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; */
+            /* --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace; */
+
+            --font-headings: 'Space Mono', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-body: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
         }
 
@@ -41,6 +58,16 @@
             --shadow-lg: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
         }
 
+        [data-theme="light"] {
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --border-color: #e2e8f0;
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -48,11 +75,18 @@
         }
 
         body {
-            font-family: var(--font-primary);
+            font-family: var(--font-body);
             line-height: 1.6;
             color: var(--text-primary);
             background-color: var(--bg-primary);
             transition: all 0.3s ease;
+        }
+
+        /* Headings use different font */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-headings);
+            font-weight: 600;
+            line-height: 1.2;
         }
 
         .container {
@@ -79,6 +113,10 @@
             padding: 8px 12px;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 100;
+            box-shadow: var(--shadow);
         }
 
         .theme-toggle:hover {
@@ -110,10 +148,30 @@
         }
 
         .hero .description {
-            font-size: 1.1rem;
+            font-size: 0.8rem;
             color: var(--text-secondary);
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto 2rem;
+            text-align: left;
+            line-height: 1.8;        
+        }
+
+        .description-line {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .description-line:last-child {
+            margin-bottom: 0;
+        }
+
+        .description-line strong {
+            color: var(--text-primary);
+            font-weight: 600;
+            font-family: var(--font-body);
         }
 
         .contact-info {
@@ -240,6 +298,7 @@
         }
 
         .project-company {
+            font-family: var(--font-headings);
             color: var(--primary-color);
             font-weight: 500;
             font-size: 0.9rem;
@@ -392,20 +451,51 @@
     </style>
 </head>
 <body>
-    <div class="theme-toggle" onclick="toggleTheme()">🌙 Dark Mode</div>
+    <div class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">☀️ Light Mode</div>
+    
+    <!-- Alternative: More prominent toggle -->
+    <!-- 
+    <div style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+        <button onclick="toggleTheme()" style="
+            background: var(--primary-color); 
+            color: white; 
+            border: none; 
+            border-radius: 50%; 
+            width: 60px; 
+            height: 60px; 
+            font-size: 24px; 
+            cursor: pointer; 
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+        " onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+            🌙
+        </button>
+    </div>
+    -->
     
     <header class="header">
         <div class="container">
             <div class="hero">
                 <!-- Optional: Add your professional photo -->
-                <!-- <img src="images/gordon-profile.jpg" alt="Gordon Trinder" class="hero-image"> -->
+                <img src="images/headshot_edited.png" alt="Gordon Trinder" class="hero-image">
                 <h1>Gordon Trinder</h1>
-                <p class="subtitle">Senior Embedded Systems Engineer</p>
-                <p class="description">
-                    Versatile engineer with expertise in firmware, software, and hardware development for 
-                    socially and environmentally driven technologies. Experienced in fast-paced startup 
-                    environments with a hands-on approach to problem-solving and team leadership.
-                </p>
+                <p class="subtitle">Automation and Hardware Engineer</p>
+                <div class="description">
+                    <div class="description-line">👋 <strong>Hi, I'm a versatile engineer</strong>with experience spanning firmware, software, and hardware development.</div>
+                    <div class="description-line">🛠️ <strong>My background is in mechatronics, controls, and embedded systems,</strong>with hands-on expertise across the stack.</div>
+                    <div class="description-line">🌱 <strong>I thrive on building technologies that are socially and environmentally impactful.</strong></div>
+                    <div class="description-line">⚡ <strong>Startup environments suit me well</strong>— I'm resourceful, adaptable, and quick to get things moving.</div>
+                    <div class="description-line">🤝 <strong>My approach to problem-solving and leadership is practical and collaborative,</strong>with a focus on getting results.</div>
+                    <div class="description-line">🧠 <strong>I'm curious by nature,</strong>always excited to work across disciplines and learn from others.</div>
+                    <div class="description-line">🎯 <strong>I want to make useful, meaningful things</strong>with like-minded people who care about impact as much as execution.</div>
+                </div>
+                <!-- <p class="description">
+                    Hey, thanks for stopping by. I'm a versatile engineer with experience in firmware, software, and hardware development.<br>
+                    My background is in mechatronics, controls and embedded systems.<br>
+                    I am happiest working on socially and environmentally driven technologies and comfortable in fast-paced startup environments.<br>
+                    My approach to problem-solving and leadership is hands-on and resourceful. Always interested in multidisciplinary collaboration, especially if I get to learn outside my expertise.<br>
+                    Basically I wanna make cool things with like-minded people that are useful.
+                </p> -->
                 <div class="contact-info">
                     <a href="mailto:gordontrinder@gmail.com" class="contact-item">
                         <span>📧</span> gordontrinder@gmail.com
@@ -413,9 +503,13 @@
                     <a href="tel:+447972419155" class="contact-item">
                         <span>📱</span> +44 7972 419155
                     </a>
-                    <a href="https://www.gordomakesthings.com" class="contact-item">
+                    <a href="documents/gordon_trinder_cv.pdf" class="contact-item" download>
+                        <span>📄</span> Download CV
+                    </a>
+                    <!-- <a href="https://www.gordomakesthings.com" class="contact-item">
                         <span>🌐</span> gordomakesthings.com
                     </a>
+                    -->            
                 </div>
             </div>
         </div>
@@ -424,8 +518,35 @@
     <section class="skills">
         <div class="container">
             <h2>Technical Expertise</h2>
-            <div class="skills-grid">
+            <div class="skills-grid">                                
                 <div class="skill-category">
+                    <h3>Hardware</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">PCB Design & Layout</span>
+                        <span class="skill-tag">Altium</span>
+                        <span class="skill-tag">Control Panel Design & Assembly</span>
+                        <span class="skill-tag">Mechanical Prototyping</span>
+                        <span class="skill-tag">SMD Assembly</span>
+                        <span class="skill-tag">Electronics Procurement</span>
+                        <span class="skill-tag">Fault Finding</span>
+                        <span class="skill-tag">Network</span>                        
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Software & Firmware</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">C++</span>
+                        <span class="skill-tag">ROS</span>
+                        <span class="skill-tag">Motion Controller Programming</span>
+                        <span class="skill-tag">IoT Development</span>
+                        <span class="skill-tag">Control API Design</span>
+                        <span class="skill-tag">Version Control</span>
+                    </div>
+                </div>
+                
+                <!-- <div class="skill-category">
                     <h3>Embedded Systems</h3>
                     <div class="skill-tags">
                         <span class="skill-tag">C/C++</span>
@@ -435,42 +556,18 @@
                         <span class="skill-tag">Microcontrollers</span>
                         <span class="skill-tag">IoT Development</span>
                     </div>
-                </div>
-                
-                <div class="skill-category">
-                    <h3>Hardware Design</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">PCB Design</span>
-                        <span class="skill-tag">Altium Designer</span>
-                        <span class="skill-tag">Circuit Analysis</span>
-                        <span class="skill-tag">Hardware Prototyping</span>
-                        <span class="skill-tag">Power Electronics</span>
-                        <span class="skill-tag">Sensor Integration</span>
-                    </div>
-                </div>
-                
-                <div class="skill-category">
-                    <h3>Software & Systems</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">JavaScript</span>
-                        <span class="skill-tag">ROS</span>
-                        <span class="skill-tag">MQTT</span>
-                        <span class="skill-tag">Modbus</span>
-                        <span class="skill-tag">API Development</span>
-                        <span class="skill-tag">Database Design</span>
-                    </div>
-                </div>
-                
+                </div> -->
+
                 <div class="skill-category">
                     <h3>Leadership & Process</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">Team Leadership</span>
+                        <span class="skill-tag">Engineering Staff Management</span>
+                        <span class="skill-tag">Requirements Definition</span>
                         <span class="skill-tag">Project Management</span>
-                        <span class="skill-tag">Agile Development</span>
-                        <span class="skill-tag">Technical Mentoring</span>
-                        <span class="skill-tag">Client Relations</span>
-                        <span class="skill-tag">System Integration</span>
+                        <span class="skill-tag">Agile</span>
+                        <span class="skill-tag">Hiring</span>
+                        <span class="skill-tag">Funding Application</span>
+                        <span class="skill-tag">Cross-team Collaboration</span>
                     </div>
                 </div>
             </div>
@@ -483,8 +580,54 @@
             <div class="projects-grid">
                 <div class="project-card">
                     <!-- Optional: Add project image -->
+                    <!-- <div class="project-image-container">
+                        <img src="images/projects/robot3.jpg" alt="XYZ Robot" class="project-image" onerror="this.style.display='none'">
+                    </div> -->
+                    <div class="project-header">
+                        <h3 class="project-title">Plant Transport Robot</h3>
+                        <p class="project-company">Vertical Future</p>
+                    </div>
+                    <div class="project-content">
+                        <p class="project-description">
+                            Created control software for robot at core of automated vertical farming system that moved crops between farm subsystems. Software integrates Trio motion controllers, PLC, and barcode scanner and
+                            enables a high-level farm controller (farm-agent) to instruct the robot to perform operations, report data and handle errors.
+                            The work included on-site testing, debugging and iterative design of hardware.
+                        </p>
+                        <!-- <div class="project-details">
+                            <div class="project-section">
+                                <span class="project-label">Role:</span>
+                                <span class="project-text">Embedded Systems Engineer - Software, firmware and electrical controls development</span>
+                            </div>
+                            <div class="project-section">
+                                <span class="project-label">Innovation:</span>
+                                <span class="project-text">Autonomous energy delivery system now operating reliably in field deployments</span>
+                            </div>
+                            <div class="project-section">
+                                <span class="project-label">Key Skills:</span>
+                                <span class="project-text">BMS design, grid-tie architecture, C++ firmware, Python APIs</span>
+                            </div>
+                        </div> -->
+                        <!-- Optional: Project gallery -->
+                        <div class="project-gallery">
+                            <img src="images/projects/robot1.jpg" alt="MBRIC PCB Design" class="gallery-image" onclick="openModal(this)" onerror="this.style.display='none'">
+                            <img src="images/projects/robot2.jpg" alt="MBRIC Installation" class="gallery-image" onclick="openModal(this)" onerror="this.style.display='none'">
+                            <img src="images/projects/robot3.jpg" alt="MBRIC Interface" class="gallery-image" onclick="openModal(this)" onerror="this.style.display='none'">
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag">Robotics</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">TrioBASIC</span>
+                            <span class="tech-tag">Electrical Panel Debugging</span>
+                            <span class="tech-tag">Modbus</span>
+                            <span class="tech-tag">PLC Integration</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <!-- Optional: Add project image -->
                     <div class="project-image-container">
-                        <img src="images/projects/mbric-system.jpg" alt="MBRIC Energy Storage System" class="project-image" onerror="this.style.display='none'">
+                        <img src="images/projects/mbric_2.png" alt="MBRIC Energy Storage System" class="project-image" onerror="this.style.display='none'">
                     </div>
                     <div class="project-header">
                         <h3 class="project-title">MBRIC Energy Storage System</h3>
@@ -492,10 +635,11 @@
                     </div>
                     <div class="project-content">
                         <p class="project-description">
-                            Full-stack development of modular energy storage system using second-life batteries 
-                            for grid-tie applications in low-income countries.
+                            Developed full-stack features for a modular energy storage system using 2nd-life batteries. 
+                            Work included BMS PCB design, firmware, backend, and mechanical/electronic prototyping. 
+                            Delivered a reliable grid-connected product with remote autonomy.
                         </p>
-                        <div class="project-details">
+                        <!-- <div class="project-details">
                             <div class="project-section">
                                 <span class="project-label">Role:</span>
                                 <span class="project-text">Lead Engineer - Hardware, firmware, and backend development</span>
@@ -508,91 +652,71 @@
                                 <span class="project-label">Key Skills:</span>
                                 <span class="project-text">BMS design, grid-tie architecture, C++ firmware, Python APIs</span>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- Optional: Project gallery -->
                         <div class="project-gallery">
-                            <img src="images/projects/mbric-pcb.jpg" alt="MBRIC PCB Design" class="gallery-image" onclick="openModal(this)" onerror="this.style.display='none'">
-                            <img src="images/projects/mbric-installation.jpg" alt="MBRIC Installation" class="gallery-image" onclick="openModal(this)" onerror="this.style.display='none'">
-                            <img src="images/projects/mbric-interface.jpg" alt="MBRIC Interface" class="gallery-image" onclick="openModal(this)" onerror="this.style.display='none'">
+                            <img src="images/projects/mbric_1.png" alt="MBRIC PCB Design" class="gallery-image" onclick="openModal(this)" onerror="this.style.display='none'">
                         </div>
                         <div class="project-tech">
                             <span class="tech-tag">C++</span>
-                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Python API</span>
                             <span class="tech-tag">PCB Design</span>
                             <span class="tech-tag">BMS</span>
-                            <span class="tech-tag">Grid-tie</span>
+                            <span class="tech-tag">System Integration</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card">
+                    <!-- <div class="project-image-container">
+                        <img src="images/projects/tnet_pcb.png" alt="MBRIC Energy Storage System" class="project-image" onerror="this.style.display='none'">
+                    </div> -->
                     <div class="project-header">
                         <h3 class="project-title">Senior Safety IoT Device</h3>
                         <p class="project-company">T.NET / ALP Technologies</p>
                     </div>
                     <div class="project-content">
                         <p class="project-description">
-                            Low-power IoT device for senior monitoring with light/motion sensing and LoRa communication, 
-                            designed for minimal power consumption and cost efficiency.
+                            Designed and delivered a low-power motion and light-sensing PCB with LoRa communication. 
+                            Managed full board bring-up, firmware prototyping, and client support within tight cost/power constraints during silicon shortage.
+
                         </p>
-                        <div class="project-details">
-                            <div class="project-section">
-                                <span class="project-label">Challenge:</span>
-                                <span class="project-text">Component shortage mitigation and power optimization</span>
-                            </div>
-                            <div class="project-section">
-                                <span class="project-label">Outcome:</span>
-                                <span class="project-text">Complete PCB design delivered on time with full client support</span>
-                            </div>
-                            <div class="project-section">
-                                <span class="project-label">Learning:</span>
-                                <span class="project-text">PCB manufacturing workflow and design-to-cost methodologies</span>
-                            </div>
-                        </div>
+                        <div class="project-gallery">
+                            <img src="images/projects/tnet_pcb.png" alt="MBRIC PCB Design" class="gallery-image" onclick="openModal(this)" onerror="this.style.display='none'">
+                        </div>                        
                         <div class="project-tech">
                             <span class="tech-tag">LoRa</span>
                             <span class="tech-tag">Low Power</span>
                             <span class="tech-tag">PCB Design</span>
                             <span class="tech-tag">IoT</span>
+                            <span class="tech-tag">Client Relations</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card">
                     <div class="project-header">
-                        <h3 class="project-title">Autonomous Farm Control System</h3>
-                        <p class="project-company">Vertical Future - Template</p>
+                        <h3 class="project-title">farm-agent</h3>
+                        <p class="project-company">Vertical Future</p>
                     </div>
+                    
                     <div class="project-content">
                         <p class="project-description">
-                            Integrated control system for automated vertical farming operations including seeders, 
-                            conveyors, and robotic plant handling systems.
+                            Oversaw development of a high level control system that integrated machines and processes to automate a vertical farm.
+                            Designed and implemented subsystem interfaces for seeder and XYZ robot machines. Performed extensive on-site testing and provided 
+                            support for operators once system active.
                         </p>
-                        <div class="project-details">
-                            <div class="project-section">
-                                <span class="project-label">Role:</span>
-                                <span class="project-text">Senior Engineer - System architecture and team leadership</span>
-                            </div>
-                            <div class="project-section">
-                                <span class="project-label">Impact:</span>
-                                <span class="project-text">Transitioned from isolated machines to fully integrated farm system</span>
-                            </div>
-                            <div class="project-section">
-                                <span class="project-label">Team:</span>
-                                <span class="project-text">Led and expanded embedded systems team from 2 to 5 engineers</span>
-                            </div>
-                        </div>
                         <div class="project-tech">
                             <span class="tech-tag">Python</span>
-                            <span class="tech-tag">RS485</span>
-                            <span class="tech-tag">Modbus</span>
+                            <span class="tech-tag">Unit Testing</span>
+                            <span class="tech-tag">Interface Definition</span>
                             <span class="tech-tag">RPC</span>
-                            <span class="tech-tag">Automation</span>
+                            <span class="tech-tag">RS485</span>                            
                         </div>
                     </div>
                 </div>
 
-                <div class="project-card">
+                <!-- <div class="project-card">
                     <div class="project-header">
                         <h3 class="project-title">Plant Growth Monitoring System</h3>
                         <p class="project-company">Vertical Future - Template</p>
@@ -623,19 +747,36 @@
                             <span class="tech-tag">PCB Design</span>
                         </div>
                     </div>
+                </div> -->
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">Metal Sculptural Clock</h3>
+                        <p class="project-company">BB Steelworks</p>
+                    </div>
+                    <div class="project-content">
+                        <p class="project-description">
+                            Designed and installed control electronics and motors to bring a kinetic steel sculpture to life.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Electrical wiring and assembly</span>
+                            <span class="tech-tag">Artist Collaboration</span>                            
+                            <span class="tech-tag">Arduino</span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="project-card">
                     <div class="project-header">
-                        <h3 class="project-title">Robotic Harvesting System</h3>
-                        <p class="project-company">Vertical Future - Template</p>
+                        <h3 class="project-title">Blackcurrant Harvester Autosteer</h3>
+                        <p class="project-company">White Heron Farm / Harper Adams University</p>
                     </div>
                     <div class="project-content">
                         <p class="project-description">
-                            Precision robotic system for automated harvesting of leafy greens with computer vision 
-                            and adaptive control algorithms.
+                            Built a 3D vision subsystem to steer a robotic harvester based on bush-row depth data. 
+                            Delivered working proof-of-concept despite late-stage access to test data.
                         </p>
-                        <div class="project-details">
+                        <!-- <div class="project-details">
                             <div class="project-section">
                                 <span class="project-label">Challenge:</span>
                                 <span class="project-text">Gentle handling of delicate produce with consistent quality</span>
@@ -648,27 +789,58 @@
                                 <span class="project-label">Result:</span>
                                 <span class="project-text">95% success rate with minimal product damage</span>
                             </div>
+                        </div> -->
+                        <div class="project-gallery">
+                            <img src="images/projects/blackcurrant_harvester.jpg" alt="MBRIC PCB Design" class="gallery-image" onclick="openModal(this)" onerror="this.style.display='none'">
+                            <img src="images/projects/blackcurrant_image_pipeline.png" alt="MBRIC PCB Design" class="gallery-image" onclick="openModal(this)" onerror="this.style.display='none'">
                         </div>
                         <div class="project-tech">
-                            <span class="tech-tag">Computer Vision</span>
+                            <span class="tech-tag">ROS</span>
+                            <span class="tech-tag">OpenCV</span>
+                            <span class="tech-tag">Depth Sensing Camera</span>
                             <span class="tech-tag">Robotics</span>
-                            <span class="tech-tag">Motion Control</span>
-                            <span class="tech-tag">Python</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card">
                     <div class="project-header">
-                        <h3 class="project-title">Farm Management Dashboard</h3>
-                        <p class="project-company">Vertical Future - Template</p>
+                        <h3 class="project-title">Near Infrared Moisture Detection System</h3>
+                        <p class="project-company">Crover Ltd. / Harper Adams University</p>
                     </div>
                     <div class="project-content">
                         <p class="project-description">
-                            Comprehensive web-based management system for monitoring and controlling all aspects 
-                            of vertical farm operations from a centralized interface.
+                            Engineered a dualband NIR spectrometry system to estimate grain moisture. 
+                            Developed experimental process, MATLAB model, and prototype electronics to collect sensor data.
                         </p>
-                        <div class="project-details">
+                        <div class="project-gallery">
+                            <img src="images/projects/crover_circuit.png" alt="MBRIC PCB Design" class="gallery-image" onclick="openModal(this)" onerror="this.style.display='none'">
+                            <img src="images/projects/crover_experiment.jpg" alt="MBRIC PCB Design" class="gallery-image" onclick="openModal(this)" onerror="this.style.display='none'">
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag">Sensor Prototyping</span>
+                            <span class="tech-tag">MATLAB</span>
+                            <span class="tech-tag">Optical Electronics</span>  
+                            <span class="tech-tag">3D Printing</span>                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image-container">
+                        <img src="images/projects/drum_squncr.jpg" alt="MBRIC Energy Storage System" class="project-image" onerror="this.style.display='none'">
+                    </div>
+                    <div class="project-header">
+                        <h3 class="project-title">Drum Sequencer</h3>
+                        <p class="project-company">Refract Music</p>
+                    </div>
+                    <div class="project-content">
+                        <p class="project-description">
+                            Built a portable MIDI drum sequencer with external triggers and an intuitive interface. 
+                            Designed and coded features using Teensy board, housed in custom-built enclosure.
+                            Delivered 'How to build your own MIDI controller' workshop, based on a simplified version of device.
+                        </p>
+                        <!-- <div class="project-details">
                             <div class="project-section">
                                 <span class="project-label">Features:</span>
                                 <span class="project-text">Real-time monitoring, predictive analytics, automated alerts</span>
@@ -681,19 +853,24 @@
                                 <span class="project-label">Impact:</span>
                                 <span class="project-text">Reduced operational overhead by 40% through automation</span>
                             </div>
-                        </div>
+                        </div> -->                        
                         <div class="project-tech">
-                            <span class="tech-tag">Full Stack</span>
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">Database</span>
-                            <span class="tech-tag">API Design</span>
+                            <span class="tech-tag">Audio Programming</span>
+                            <span class="tech-tag">MIDI</span>
+                            <span class="tech-tag">Arduino</span>
+                            <span class="tech-tag">Enclosure Design</span>
+                            <span class="tech-tag">Workshop Facilitation</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Image Modal -->
+    <div class="image-modal" id="imageModal" onclick="closeModal()">
+        <img id="modalImage" class="modal-image" alt="Project Image">
+    </div>
 
     <script>
         function toggleTheme() {
@@ -702,12 +879,31 @@
             
             if (body.hasAttribute('data-theme')) {
                 body.removeAttribute('data-theme');
-                button.textContent = '🌙 Dark Mode';
-            } else {
-                body.setAttribute('data-theme', 'dark');
                 button.textContent = '☀️ Light Mode';
+            } else {
+                body.setAttribute('data-theme', 'light');
+                button.textContent = '🌙 Dark Mode';
             }
         }
+
+        function openModal(img) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.style.display = 'block';
+            modalImg.src = img.src;
+            modalImg.alt = img.alt;
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
     </script>
 </body>
 </html>
