@@ -435,9 +435,23 @@
             }
 
             .hero .description {
-                text-align: center; /* Center on mobile if preferred */
+                text-align: center;
                 font-size: 1rem;
                 max-width: 100%;
+                padding: 0 10px;
+            }
+            
+            .description-line {
+                margin-bottom: 0.75rem;
+                line-height: 1.7;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+
+            /* Remove bold styling on mobile for cleaner reading */
+            .description-line strong {
+                font-weight: 400;
+                color: var(--text-secondary);
             }
             
             .contact-info {
