@@ -424,8 +424,8 @@
             font-weight: 500;
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
+/* Responsive Design */
+@media (max-width: 768px) {
             .hero h1 {
                 font-size: 2rem;
             }
@@ -435,23 +435,24 @@
             }
 
             .hero .description {
-                text-align: center;
-                font-size: 1rem;
+                text-align: left;
+                font-size: 0.9rem;
                 max-width: 100%;
                 padding: 0 10px;
             }
             
             .description-line {
-                margin-bottom: 0.75rem;
-                line-height: 1.7;
+                margin-bottom: 1rem;
+                line-height: 1.6;
+                display: block;
                 word-wrap: break-word;
                 overflow-wrap: break-word;
             }
 
-            /* Remove bold styling on mobile for cleaner reading */
             .description-line strong {
-                font-weight: 400;
-                color: var(--text-secondary);
+                font-weight: 600;
+                color: var(--text-primary);
+                display: inline;
             }
             
             .contact-info {
