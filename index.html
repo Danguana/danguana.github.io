@@ -372,20 +372,49 @@
             margin-top: 1rem;
         }
 
-        .gallery-image {
+        .gallery-image, .gallery-video {
             width: 100%;
             height: 100px;
             object-fit: cover;
             border-radius: 8px;
             cursor: pointer;
             transition: transform 0.3s ease;
+            display: block;
         }
 
-        .gallery-image:hover {
+        .gallery-image:hover, .gallery-video:hover {
             transform: scale(1.05);
         }
+        
+        .gallery-video {
+            background: #000;
+            object-fit: cover;
+        }
+        
+        /* YouTube embed styling */
+        .gallery-youtube {
+            width: 100%;
+            height: 100px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            overflow: hidden;
+            position: relative;
+            background: #000;
+        }
+        
+        .gallery-youtube:hover {
+            transform: scale(1.05);
+        }
+        
+        .gallery-youtube iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: none;
+        }
 
-        /* Modal for full-size images */
+        /* Modal for full-size images and videos */
         .image-modal {
             display: none;
             position: fixed;
@@ -393,18 +422,41 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             z-index: 1000;
             cursor: pointer;
         }
 
-        .modal-image {
+        .modal-image, .modal-video {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             max-width: 90%;
             max-height: 90%;
+            border-radius: 8px;
+        }
+        
+        .modal-video {
+            width: 80%;
+            height: 60vh;
+        }
+        
+        /* YouTube modal styling */
+        .modal-youtube {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 60vh;
+            border-radius: 8px;
+        }
+        
+        .modal-youtube iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
             border-radius: 8px;
         }
 
@@ -424,7 +476,7 @@
             font-weight: 500;
         }
 
-/* Responsive Design */
+        /* Responsive Design */
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2rem;
