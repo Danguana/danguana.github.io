@@ -1011,42 +1011,87 @@
     </section>
 
     <!-- Image Modal -->
-    <div class="image-modal" id="imageModal" onclick="closeModal()">
-        <img id="modalImage" class="modal-image" alt="Project Image">
+    <div class="image-modal" id="imageModal" onclick="closeModal(event)">
+        <img id="modalImage" class="modal-image" alt="Project Image" style="display:none;">
+        <video id="modalVideo" class="modal-video" controls style="display:none;">
+            <source id="modalVideoSource" src="" type="video/mp4">
+        </video>
+        <div id="modalYoutube" class="modal-youtube" style="display:none;" onclick="event.stopPropagation()">
+            <iframe id="modalYoutubeFrame" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
     </div>
 
-    <script>
-        function toggleTheme() {
-            const body = document.body;
-            const button = document.querySelector('.theme-toggle');
-            
-            if (body.hasAttribute('data-theme')) {
-                body.removeAttribute('data-theme');
-                button.textContent = '☀️ Light Mode';
-            } else {
-                body.setAttribute('data-theme', 'light');
-                button.textContent = '🌙 Dark Mode';
-            }
+<script>
+    function toggleTheme() {
+        const body = document.body;
+        const button = document.querySelector('.theme-toggle');
+        
+        if (body.hasAttribute('data-theme')) {
+            body.removeAttribute('data-theme');
+            button.textContent = '☀️ Light Mode';
+        } else {
+            body.setAttribute('data-theme', 'light');
+            button.textContent = '🌙 Dark Mode';
         }
+    }
 
-        function openModal(img) {
-            const modal = document.getElementById('imageModal');
-            const modalImg = document.getElementById('modalImage');
-            modal.style.display = 'block';
-            modalImg.src = img.src;
-            modalImg.alt = img.alt;
+    function openModal(element) {
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalVideo = document.getElementById('modalVideo');
+        const modalVideoSource = document.getElementById('modalVideoSource');
+        const modalYoutube = document.getElementById('modalYoutube');
+        const modalYoutubeFrame = document.getElementById('modalYoutubeFrame');
+        
+        // Hide all modal content first
+        modalImg.style.display = 'none';
+        modalVideo.style.display = 'none';
+        modalYoutube.style.display = 'none';
+        modalVideo.pause();
+        
+        if (element.classList.contains('gallery-youtube')) {
+            // Show YouTube embed
+            const videoId = element.getAttribute('data-youtube-id');
+            modalYoutubeFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            modalYoutube.style.display = 'block';
+        } else if (element.tagName === 'VIDEO') {
+            // Show video
+            modalVideoSource.src = element.querySelector('source').src;
+            modalVideo.style.display = 'block';
+            modalVideo.load();
+            modalVideo.play();
+        } else {
+            // Show image
+            modalImg.src = element.src;
+            modalImg.alt = element.alt;
+            modalImg.style.display = 'block';
         }
+        
+        // Show modal after content is set
+        modal.style.display = 'block';
+    }
 
-        function closeModal() {
-            document.getElementById('imageModal').style.display = 'none';
+    function closeModal(event) {
+        // Only close if clicking the background, not the content
+        if (event && event.target.id !== 'imageModal') {
+            return;
         }
+        
+        const modal = document.getElementById('imageModal');
+        const modalVideo = document.getElementById('modalVideo');
+        const modalYoutubeFrame = document.getElementById('modalYoutubeFrame');
+        
+        modal.style.display = 'none';
+        modalVideo.pause();
+        modalYoutubeFrame.src = ''; // Stop YouTube video
+    }
 
-        // Close modal with Escape key
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                closeModal();
-            }
-        });
-    </script>
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeModal({target: {id: 'imageModal'}});
+        }
+    });
+</script>
 </body>
 </html>
